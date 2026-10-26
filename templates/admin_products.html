@@ -1,0 +1,29 @@
+{% extends "base.html" %}{% from "_macros.html" import stock with context %}{% block title %}จัดการสินค้า{% endblock %}
+{% block content %}
+<h1 class="text-xl font-bold mb-4">จัดการสินค้าและสต็อก</h1>
+{% macro fields(p) %}
+  <select name="category_id" class="border rounded px-2 py-1" aria-label="หมวดหมู่">{% for c in cats %}<option value="{{ c.id }}" {{ 'selected' if p and p.category_id == c.id }}>{{ c.name }}</option>{% endfor %}</select>
+  <input name="name" value="{{ p.name if p }}" required placeholder="ชื่อสินค้า" class="border rounded px-2 py-1 flex-1 min-w-40" aria-label="ชื่อสินค้า">
+  <input type="number" name="price" value="{{ p.price|int if p }}" required min="0" step="any" placeholder="ราคา" class="border rounded px-2 py-1 w-24" aria-label="ราคา">
+  <input type="number" name="stock" value="{{ p.stock if p }}" required min="0" placeholder="สต็อก" class="border rounded px-2 py-1 w-20" aria-label="สต็อก">
+  <input type="number" name="low_stock_threshold" value="{{ p.low_stock_threshold if p else 5 }}" min="0" class="border rounded px-2 py-1 w-20" aria-label="เกณฑ์สต็อกต่ำ" title="แจ้งเตือนเมื่อสต็อกต่ำกว่าหรือเท่ากับ">
+  <input type="hidden" name="description" value="{{ p.description if p and p.description }}"><input type="hidden" name="image_url" value="{{ p.image_url if p and p.image_url }}">
+{% endmacro %}
+<form method="post" class="bg-teal-50 border border-teal-200 rounded-lg p-3 mb-6 flex flex-wrap gap-2 items-center">
+  <input type="hidden" name="act" value="add"><b class="text-sm">เพิ่มสินค้า</b>{{ fields(none) }}
+  <button class="bg-teal-700 text-white rounded px-4 py-1">เพิ่ม</button>
+</form>
+<p class="text-xs text-stone-500 mb-2">คอลัมน์: หมวดหมู่ · ชื่อ · ราคา · สต็อก · เกณฑ์แจ้งเตือนสต็อกต่ำ</p>
+<div class="space-y-2">
+{% for p in products %}
+  <div class="bg-white border rounded-lg p-2 flex flex-wrap gap-2 items-center">
+    <form method="post" class="flex flex-wrap gap-2 items-center flex-1">
+      <input type="hidden" name="act" value="edit"><input type="hidden" name="id" value="{{ p.id }}">{{ fields(p) }}
+      <button class="border rounded px-3 py-1 text-sm">บันทึก</button>
+    </form>
+    {{ stock(p) }}
+    <form method="post" onsubmit="return confirm('ลบสินค้านี้?')"><input type="hidden" name="act" value="delete"><input type="hidden" name="id" value="{{ p.id }}"><button class="text-sm text-red-700 underline">ลบ</button></form>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

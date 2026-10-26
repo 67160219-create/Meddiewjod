@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% from "_macros.html" import stock with context %}
+{% block title %}{{ p.name }}{% endblock %}
+{% block content %}
+<a href="{{ url_for('index') }}" class="text-sm text-teal-800 underline">← กลับไปรายการสินค้า</a>
+<div class="grid md:grid-cols-2 gap-8 mt-4">
+  <div class="h-72 bg-teal-50 rounded-lg flex items-center justify-center text-7xl">{% if p.image_url %}<img src="{{ p.image_url }}" alt="{{ p.name }}" class="h-full w-full object-cover rounded-lg">{% else %}💊{% endif %}</div>
+  <div>
+    <p class="text-sm text-stone-500">{{ p.cat }}</p>
+    <h1 class="text-2xl font-bold mt-1">{{ p.name }}</h1>
+    <p class="text-3xl font-bold text-teal-800 mt-3">{{ p.price|baht }}</p>
+    <p class="mt-3 text-stone-600">{{ p.description }}</p>
+    <p class="mt-3">{{ stock(p) }}{% if p.stock > p.low_stock_threshold %}<span class="text-sm text-stone-500">มีสินค้า {{ p.stock }} ชิ้น</span>{% endif %}</p>
+    {% if p.stock > 0 %}
+    <form method="post" action="{{ url_for('cart') }}" class="mt-5 flex gap-2">
+      <input type="hidden" name="act" value="add"><input type="hidden" name="pid" value="{{ p.id }}">
+      <input type="number" name="qty" value="1" min="1" max="{{ p.stock }}" required class="border rounded px-3 py-2 w-24">
+      <button class="bg-teal-700 text-white rounded px-5 py-2">เพิ่มลงตะกร้า</button>
+    </form>
+    {% else %}<p class="mt-5 text-red-700">สินค้าหมดชั่วคราว</p>{% endif %}
+  </div>
+</div>
+{% endblock %}

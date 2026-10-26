@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% from "_macros.html" import badge with context %}{% block title %}คำสั่งซื้อของฉัน{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-4"><h1 class="text-xl font-bold">คำสั่งซื้อของฉัน</h1>
+  <button onclick="window.print()" class="border rounded px-3 py-1 text-sm no-print">พิมพ์ใบสั่งซื้อ</button></div>
+{% if not orders %}<p class="py-10 text-center text-stone-500">ยังไม่มีคำสั่งซื้อ <a href="{{ url_for('index') }}" class="underline text-teal-800">เริ่มเลือกสินค้า</a></p>{% endif %}
+<div class="space-y-3">
+{% for o in orders %}
+  <div class="bg-white border rounded-lg p-4">
+    <div class="flex flex-wrap justify-between gap-2"><b>ออเดอร์ #{{ o.id }}</b><span class="text-sm text-stone-500">{{ o.created_at }}</span>{{ badge(o.status) }}</div>
+    {% for it in items[o.id] %}<p class="text-sm flex justify-between pt-1"><span>{{ it.name }} × {{ it.quantity }}</span><span>{{ (it.unit_price * it.quantity)|baht }}</span></p>{% endfor %}
+    <p class="text-sm text-stone-500 mt-2">ส่งที่: {{ o.shipping_address }}</p>
+    <p class="text-right font-bold text-teal-800">{{ o.total|baht }}</p>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

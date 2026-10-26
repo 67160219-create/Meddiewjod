@@ -1,0 +1,27 @@
+{% extends "base.html" %}{% from "_macros.html" import stock with context %}
+{% block content %}
+<form method="get" class="flex flex-wrap gap-2 mb-5 no-print">
+  <input name="q" value="{{ s }}" placeholder="ค้นหาสินค้า" class="border rounded px-3 py-2 flex-1 min-w-40">
+  <select name="cat" class="border rounded px-3 py-2"><option value="">ทุกหมวดหมู่</option>
+    {% for k in cats %}<option value="{{ k.id }}" {{ 'selected' if k.id == c }}>{{ k.name }}</option>{% endfor %}</select>
+  <select name="sort" class="border rounded px-3 py-2">
+    <option value="">เรียงตามล่าสุด</option>
+    <option value="price_asc" {{ 'selected' if so=='price_asc' }}>ราคา น้อยไปมาก</option>
+    <option value="price_desc" {{ 'selected' if so=='price_desc' }}>ราคา มากไปน้อย</option></select>
+  <button class="bg-teal-700 text-white rounded px-4 py-2">ค้นหา</button>
+</form>
+{% if not products %}<p class="py-12 text-center text-stone-500">ไม่พบสินค้าที่ตรงกับเงื่อนไข ลองล้างตัวกรองหรือค้นหาคำอื่น</p>{% endif %}
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+{% for p in products %}
+  <a href="{{ url_for('product', pid=p.id) }}" class="bg-white border rounded-lg overflow-hidden hover:border-teal-600 flex flex-col">
+    <div class="h-32 bg-teal-50 flex items-center justify-center text-4xl">{% if p.image_url %}<img src="{{ p.image_url }}" alt="{{ p.name }}" class="h-full w-full object-cover">{% else %}💊{% endif %}</div>
+    <div class="p-3 flex-1 flex flex-col gap-1">
+      <span class="text-xs text-stone-500">{{ p.cat }}</span>
+      <span class="font-medium leading-snug">{{ p.name }}</span>
+      <span class="mt-auto font-bold text-teal-800">{{ p.price|baht }}</span>
+      <span>{{ stock(p) }}</span>
+    </div>
+  </a>
+{% endfor %}
+</div>
+{% endblock %}

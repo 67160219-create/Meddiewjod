@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}สมัครสมาชิก{% endblock %}
+{% block content %}
+<form method="post" class="max-w-sm mx-auto bg-white border rounded-lg p-6 space-y-3">
+  <h1 class="text-xl font-bold">สมัครสมาชิก</h1>
+  <input name="name" required placeholder="ชื่อ-นามสกุล" class="border rounded w-full px-3 py-2">
+  <input type="email" name="email" required placeholder="อีเมล" class="border rounded w-full px-3 py-2">
+  <input type="password" name="password" required minlength="6" placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)" class="border rounded w-full px-3 py-2">
+  <button class="bg-teal-700 text-white rounded px-5 py-2 w-full">สมัครสมาชิก</button>
+  <p class="text-sm text-center">มีบัญชีแล้ว? <a href="{{ url_for('login') }}" class="underline text-teal-800">เข้าสู่ระบบ</a></p>
+</form>
+{% endblock %}
