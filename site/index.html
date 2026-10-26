@@ -68,6 +68,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid #BCD0C0;outline-offset
 .bg-white{background-color:var(--paper)!important}
 .rounded{border-radius:12px!important}
 .rounded-lg{border-radius:20px!important}
+
+/* cute */
+body{background:radial-gradient(circle at 10% 10%,#FDE8EE 0,transparent 35%),radial-gradient(circle at 90% 30%,#E6F2E6 0,transparent 30%),var(--cream)}
+.hero{position:relative;overflow:hidden;padding:1.4rem;border-radius:36px;background:linear-gradient(135deg,#FFF1D6,#FDE0E6)}
+.hero-t{font-size:2rem}.hero-img{width:min(46%,440px);border-radius:28px;box-shadow:0 14px 30px -16px rgba(180,110,90,.6);animation:bob 4s ease-in-out infinite}
+@media(max-width:560px){.hero{flex-direction:column}.hero-img{width:100%}}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-1deg)}}
+.pimg{overflow:hidden;height:11rem}.pimg img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.pcard:hover .pimg img{transform:scale(1.07) rotate(-1deg)}
+.soft{border-radius:28px}.pcard{border:2px solid #F6E3E3!important}
+.btn{box-shadow:0 4px 0 var(--sage-d)}.btn:active{box-shadow:none;transform:translateY(3px)}
+.chip.on{background:#F4A6A6;border-color:#F4A6A6}
 </style>
 </head>
 <body class="text-stone-800 min-h-screen flex flex-col">
@@ -104,14 +116,14 @@ const V={};
 V.nf=()=>'<p class="py-16 text-center text-stone-500">ไม่พบหน้าที่ต้องการ <a href="#/" class="underline text-teal-800">กลับหน้าแรก</a></p>';
 const CI=['🍊','💊','🌿','🌸'],CT=['t1','t2','t3','t4'];
 V['']=()=>{const chip=(i,t)=>`<button onclick="Q.cat=${i};render()" class="chip ${Q.cat==i?'on':''}">${t}</button>`;
- return `<section class="hero np"><div><p class="hero-sub">ร้านวิตามินเล็กๆ ของเรา</p><h1 class="hero-t">ดูแลตัวเองเบาๆ ทุกวัน 🌼</h1><p class="hero-d">วิตามิน อาหารเสริม และสมุนไพร เลือกง่าย อ่านง่าย</p></div><div class="hero-emoji" aria-hidden="true">🍊🌿💊</div></section>
+ return `<section class="hero np"><div class="hero-txt"><p class="hero-sub">ร้านวิตามินเล็กๆ ของเรา</p><h1 class="hero-t">ดูแลตัวเองเบาๆ ทุกวัน 🌼</h1><p class="hero-d">วิตามิน อาหารเสริม และสมุนไพร เลือกง่าย อ่านง่าย</p></div><img class="hero-img" src="hero.jpg" alt="วิตามินน่ารักยิ้มแย้ม"></section>
 <div class="flex flex-wrap gap-2 mb-4 np">${chip(0,'ทั้งหมด')}${J(CATS,(c,i)=>chip(i+1,CI[i]+' '+c))}</div>
 <div class="flex flex-wrap gap-2 mb-5 np"><input value="${E(Q.q)}" oninput="Q.q=this.value;grid()" placeholder="ค้นหาสินค้า" class="border px-4 py-2 flex-1 min-w-40" aria-label="ค้นหา"><select onchange="Q.sort=this.value;grid()" class="border px-4 py-2" aria-label="เรียงลำดับ"><option value="">เรียงตามล่าสุด</option><option value="a" ${Q.sort=='a'?'selected':''}>ราคา น้อยไปมาก</option><option value="d" ${Q.sort=='d'?'selected':''}>ราคา มากไปน้อย</option></select></div><div id="grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>`};
 function grid(){let l=D.products.filter(p=>(!Q.cat||p.cat==Q.cat)&&(p.name+p.desc).toLowerCase().includes(Q.q.trim().toLowerCase()));
  if(Q.sort)l.sort((a,b)=>Q.sort=='a'?a.price-b.price:b.price-a.price);
- $('grid').innerHTML=l.length?J(l,p=>`<a href="#/product/${p.id}" class="${CARD} pcard overflow-hidden flex flex-col"><div class="pimg ${CT[p.cat-1]}"><span>${CI[p.cat-1]}</span></div><div class="p-4 flex-1 flex flex-col gap-1"><span class="tag ${CT[p.cat-1]}">${CATS[p.cat-1]}</span><span class="font-medium leading-snug mt-1">${E(p.name)}</span><span class="mt-auto pt-2 price">${B(p.price)}</span><span>${sb(p)}</span></div></a>`):'<p class="col-span-full py-12 text-center text-stone-500">ไม่พบสินค้าที่ตรงกับเงื่อนไข ลองล้างตัวกรองหรือค้นหาคำอื่น</p>'}
+ $('grid').innerHTML=l.length?J(l,p=>`<a href="#/product/${p.id}" class="${CARD} pcard overflow-hidden flex flex-col"><div class="pimg ${CT[p.cat-1]}"><img src="c${p.cat}.jpg" alt="" loading="lazy"></div><div class="p-4 flex-1 flex flex-col gap-1"><span class="tag ${CT[p.cat-1]}">${CATS[p.cat-1]}</span><span class="font-medium leading-snug mt-1">${E(p.name)}</span><span class="mt-auto pt-2 price">${B(p.price)}</span><span>${sb(p)}</span></div></a>`):'<p class="col-span-full py-12 text-center text-stone-500">ไม่พบสินค้าที่ตรงกับเงื่อนไข ลองล้างตัวกรองหรือค้นหาคำอื่น</p>'}
 V.product=id=>{const p=D.products.find(x=>x.id==id);if(!p)return V.nf();
- return `<a href="#/" class="text-sm text-teal-800 underline">← กลับไปรายการสินค้า</a><div class="grid md:grid-cols-2 gap-8 mt-4"><div class="pimg ${CT[p.cat-1]} h-72 text-7xl" style="border-radius:28px"><span>${CI[p.cat-1]}</span></div><div><p class="text-sm text-stone-500">${CATS[p.cat-1]}</p><h1 class="text-2xl font-bold mt-1">${E(p.name)}</h1><p class="price text-3xl mt-3">${B(p.price)}</p><p class="mt-3 text-stone-600">${E(p.desc)}</p><p class="mt-3">${sb(p,1)}</p>${p.stock?`<div class="mt-5 flex gap-2"><input id="qty" type="number" value="1" min="1" max="${p.stock}" class="border rounded px-3 py-2 w-24" aria-label="จำนวน"><button onclick="A.add(${p.id})" class="${BTN}">เพิ่มลงตะกร้า</button></div>`:''}</div></div>`};
+ return `<a href="#/" class="text-sm text-teal-800 underline">← กลับไปรายการสินค้า</a><div class="grid md:grid-cols-2 gap-8 mt-4"><div class="pimg ${CT[p.cat-1]} h-72 text-7xl" style="border-radius:28px"><img src="c${p.cat}.jpg" alt="" loading="lazy"></div><div><p class="text-sm text-stone-500">${CATS[p.cat-1]}</p><h1 class="text-2xl font-bold mt-1">${E(p.name)}</h1><p class="price text-3xl mt-3">${B(p.price)}</p><p class="mt-3 text-stone-600">${E(p.desc)}</p><p class="mt-3">${sb(p,1)}</p>${p.stock?`<div class="mt-5 flex gap-2"><input id="qty" type="number" value="1" min="1" max="${p.stock}" class="border rounded px-3 py-2 w-24" aria-label="จำนวน"><button onclick="A.add(${p.id})" class="${BTN}">เพิ่มลงตะกร้า</button></div>`:''}</div></div>`};
 V.cart=()=>{const it=cartItems(),t=it.reduce((a,x)=>a+x.s,0);if(!it.length)return '<h1 class="text-xl font-bold mb-4">ตะกร้าสินค้า</h1><p class="py-10 text-center text-stone-500">ตะกร้ายังว่าง <a href="#/" class="underline text-teal-800">เลือกสินค้า</a></p>';
  return `<h1 class="text-xl font-bold mb-4">ตะกร้าสินค้า</h1><div class="${CARD} divide-y">${J(it,({p,n,s})=>`<div class="p-3 flex flex-wrap items-center gap-3"><a href="#/product/${p.id}" class="flex-1 min-w-40 font-medium">${E(p.name)}<span class="block text-sm text-stone-500">${B(p.price)} / ชิ้น</span></a><input type="number" value="${n}" min="0" max="${p.stock}" onchange="A.setq(${p.id},this.value)" class="border rounded px-2 py-1 w-20" aria-label="จำนวน"><span class="w-24 text-right font-medium">${B(s)}</span><button onclick="A.setq(${p.id},0)" class="text-sm text-red-700 underline">ลบ</button></div>`)}</div><div class="flex justify-between items-center mt-4"><p class="text-lg">รวม <b class="text-teal-800">${B(t)}</b></p><a href="#/checkout" class="${BTN}">ไปชำระเงิน</a></div>`};
 V.checkout=()=>{const it=cartItems();if(!it.length)return V.cart();const last=D.orders.filter(o=>o.uid==D.me).pop();
