@@ -1,2 +1,0 @@
-{% macro badge(s) %}<span class="px-2 py-0.5 rounded-full text-xs whitespace-nowrap {{ ST[s][1] }}">{{ ST[s][0] }}</span>{% endmacro %}
-{% macro stock(p) %}{% if p.stock == 0 %}<span class="px-2 py-0.5 rounded-full text-xs bg-rose-50 text-rose-600">หมดสต็อก</span>{% elif p.stock <= p.low_stock_threshold %}<span class="px-2 py-0.5 rounded-full text-xs bg-orange-50 text-orange-600">สต็อกต่ำ เหลือ {{ p.stock }}</span>{% endif %}{% endmacro %}
