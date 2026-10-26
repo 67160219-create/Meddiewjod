@@ -3,19 +3,82 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MedDiewJod Shop</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<style>body{font-family:'Noto Sans Thai',system-ui,sans-serif}nav a:hover{text-decoration:underline}:focus-visible{outline:2px solid #0f766e;outline-offset:2px}@media print{.np{display:none!important}}</style>
+<style>
+:root{--cream:#FBF7F0;--cream-2:#F4EDE1;--paper:#FFFEFB;--line:#EFE7DA;--ink:#4B4238;--muted:#85796B;
+--sage:#5F7F69;--sage-d:#4C6A56;--sage-l:#E6EEE6;--peach-d:#B8744A}
+body{font-family:'Noto Sans Thai',system-ui,sans-serif;background:var(--cream);color:var(--ink)}
+h1,h2,.brand,.price,.num,.hero-t{font-family:'Mali','Noto Sans Thai',system-ui,sans-serif}
+:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
+*{border-color:var(--line)!important}
+@media print{.np{display:none!important}}
+
+/* header */
+.shop-header{background:var(--paper);border-bottom:1px solid var(--line)}
+.shop-header nav a{color:var(--ink);padding:.35rem .85rem;border-radius:999px;transition:background .15s}
+.shop-header nav a:hover{background:var(--cream-2)}
+.shop-header nav a.brand{display:flex;align-items:center;gap:.5rem;color:var(--sage-d);padding:.2rem .4rem;font-weight:700}
+.shop-header nav a.brand:hover{background:transparent}
+.brand .dot{width:32px;height:32px;border-radius:999px;background:#FBEBC8;display:inline-flex;align-items:center;justify-content:center;font-size:17px}
+.shop-header nav a.cart-pill{background:var(--sage-l);color:var(--sage-d)}
+.shop-header nav a.pill-cta{background:var(--sage);color:#fff}
+.shop-header nav a.pill-cta:hover{background:var(--sage-d)}
+
+/* surfaces */
+.soft{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 1px 0 rgba(120,100,70,.03),0 10px 28px -20px rgba(120,100,70,.35)}
+.btn{display:inline-block;text-align:center;background:var(--sage);color:#fff;border-radius:999px;padding:.6rem 1.5rem;font-weight:500;transition:background .15s,transform .15s}
+.btn:hover{background:var(--sage-d)}
+.btn:active{transform:scale(.98)}
+input,select,textarea{background:var(--paper)!important;border-radius:14px!important}
+input:focus,select:focus,textarea:focus{outline:2px solid #BCD0C0;outline-offset:0}
+
+/* pastel tints */
+.t1{--tb:#FBEBC8;--tc:#98690F}.t2{--tb:#F9DDD7;--tc:#A5544A}.t3{--tb:#DDEAD9;--tc:#4F7A58}.t4{--tb:#EBE2F4;--tc:#7A5C99}
+.pimg{height:9rem;display:flex;align-items:center;justify-content:center;font-size:3.4rem;background:var(--tb,#FBEBC8)}
+.stat-icon{width:38px;height:38px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;font-size:18px;background:var(--tb,#FBEBC8)}
+.tag{align-self:flex-start;font-size:.72rem;padding:.1rem .65rem;border-radius:999px;background:var(--tb);color:var(--tc)}
+.pcard{transition:transform .18s,box-shadow .18s}
+.pcard:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(120,100,70,.5)}
+.price{font-weight:700;color:var(--ink)}
+.num{font-size:1.75rem;font-weight:700;line-height:1.2}
+
+/* home */
+.hero{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:linear-gradient(135deg,#FBEFD5,#F9E3DA);border-radius:28px;padding:1.6rem 1.9rem;margin-bottom:1.25rem}
+.hero-sub{font-size:.8rem;color:#98690F;letter-spacing:.04em}
+.hero-t{font-size:1.65rem;font-weight:700;line-height:1.3;margin:.2rem 0}
+.hero-d{font-size:.9rem;color:#6F6252}
+.hero-emoji{font-size:2.2rem;letter-spacing:.25rem;white-space:nowrap}
+@media(max-width:560px){.hero-emoji{display:none}.hero-t{font-size:1.35rem}}
+.chip{padding:.4rem 1.05rem;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:.88rem;transition:background .15s}
+.chip:hover{background:var(--cream-2)}
+.chip.on{background:var(--sage);border-color:var(--sage);color:#fff}
+
+/* dashboard */
+.chart-bar{background:linear-gradient(180deg,#F3C9A8,#E9A87C);border-radius:12px 12px 5px 5px}
+
+/* recolor ของเดิม (teal) ให้เข้าธีม */
+.bg-teal-700,.bg-teal-600{background-color:var(--sage)!important}
+.text-teal-800,.text-teal-700{color:var(--sage-d)!important}
+.bg-teal-50{background-color:var(--sage-l)!important}
+.text-stone-500{color:var(--muted)!important}
+.text-stone-600{color:#6F6454!important}
+.bg-white{background-color:var(--paper)!important}
+.rounded{border-radius:12px!important}
+.rounded-lg{border-radius:20px!important}
+</style>
 </head>
-<body class="bg-stone-50 text-stone-800 min-h-screen flex flex-col">
-<header class="bg-teal-800 text-white np"><nav id="nav" class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"></nav></header>
+<body class="text-stone-800 min-h-screen flex flex-col">
+<header class="shop-header np"><nav id="nav" class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"></nav></header>
 <main id="app" class="max-w-6xl mx-auto w-full px-4 py-6 flex-1"></main>
 <footer class="text-center text-xs text-stone-500 py-4 np">MedDiewJod Shop · เวอร์ชันสาธิต ข้อมูลเก็บในเบราว์เซอร์นี้เท่านั้น การชำระเงินเป็นการจำลอง · <button onclick="A.reset()" class="underline">รีเซ็ตข้อมูลตัวอย่าง</button></footer>
 <script>
 const KEY='mdj-shop-v1',$=i=>document.getElementById(i),J=(a,f)=>a.map(f).join(''),B=v=>'฿'+Math.round(v).toLocaleString('en-US'),
 E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),
-I='border rounded w-full px-3 py-2',BTN='bg-teal-700 text-white rounded px-5 py-2',CARD='bg-white border rounded-lg';
-const ST={pending:['รอดำเนินการ','bg-amber-100 text-amber-800'],shipped:['จัดส่งแล้ว','bg-sky-100 text-sky-800'],delivered:['ส่งถึงแล้ว','bg-emerald-100 text-emerald-800'],cancelled:['ยกเลิก','bg-stone-200 text-stone-600']};
+I='border rounded w-full px-3 py-2',BTN='btn',CARD='soft';
+const ST={pending:['รอดำเนินการ','bg-amber-50 text-amber-700'],shipped:['จัดส่งแล้ว','bg-sky-50 text-sky-700'],delivered:['ส่งถึงแล้ว','bg-emerald-50 text-emerald-700'],cancelled:['ยกเลิก','bg-stone-100 text-stone-500']};
 const CATS=['วิตามิน','อาหารเสริม','สมุนไพร','ผิวพรรณ'];
 const P0=[[1,'วิตามินซี 1000 มก.','ช่วยเสริมภูมิคุ้มกัน บรรจุ 60 เม็ด',290,40,10],[1,'วิตามินดี 3 2000 IU','บำรุงกระดูกและฟัน บรรจุ 90 เม็ด',350,25,8],[1,'วิตามินบีรวม','ช่วยการเผาผลาญพลังงาน บรรจุ 100 เม็ด',420,4,8],[1,'มัลติวิตามิน วิตามินรวมและแร่ธาตุ','วิตามิน 23 ชนิด บรรจุ 120 เม็ด',590,18,8],[2,'น้ำมันปลา โอเมก้า 3','EPA/DHA สูง บรรจุ 100 แคปซูล',480,30,10],[2,'แคลเซียม + แมกนีเซียม','บำรุงกระดูก บรรจุ 90 เม็ด',390,3,8],[2,'โปรไบโอติกส์ 10 สายพันธุ์','ปรับสมดุลระบบขับถ่าย 30 แคปซูล',650,15,6],[2,'คอลลาเจนเปปไทด์ ผงชง','รสส้ม 30 ซอง',890,12,5],[2,'โคเอนไซม์คิวเท็น 100 มก.','บำรุงหัวใจ บรรจุ 60 แคปซูล',760,0,5],[3,'สารสกัดขมิ้นชัน','ช่วยลดอาการท้องอืด บรรจุ 60 แคปซูล',220,50,10],[3,'ฟ้าทะลายโจร','สมุนไพรไทย บรรจุ 100 แคปซูล',160,60,15],[3,'สารสกัดขิง','ช่วยขับลม บรรจุ 60 แคปซูล',190,35,10],[3,'กระชายขาวสกัด','บรรจุ 60 แคปซูล',240,5,10],[4,'ไบโอติน 5000 mcg','บำรุงผมและเล็บ บรรจุ 90 เม็ด',450,22,8],[4,'กลูต้าไธโอน 500 มก.','บำรุงผิว บรรจุ 30 แคปซูล',990,9,5],[4,'เซราไมด์ + วิตามินอี','บำรุงผิวแห้ง บรรจุ 30 แคปซูล',720,14,5]];
 const DEMO=[[6,'delivered',[[1,2],[5,1]]],[5,'delivered',[[8,1]]],[4,'shipped',[[4,1],[10,2]]],[3,'delivered',[[15,1],[14,1]]],[2,'shipped',[[7,2]]],[1,'pending',[[2,1],[11,3]]],[1,'pending',[[16,1]]],[0,'pending',[[5,2],[1,1]]],[0,'cancelled',[[12,1]]]];
@@ -30,21 +93,25 @@ if(!D||!D.products)D=seed();
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}};
 const me=()=>D.users.find(u=>u.id==D.me),uu=id=>D.users.find(u=>u.id==id)||{name:'?',email:''},pn=id=>(D.products.find(p=>p.id==id)||{name:'(ลบแล้ว)'}).name;
 const bd=s=>`<span class="px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${ST[s][1]}">${ST[s][0]}</span>`;
-const sb=(p,full)=>p.stock==0?'<span class="px-2 py-0.5 rounded-full text-xs bg-red-100 text-red-700">หมดสต็อก</span>':p.stock<=p.low?`<span class="px-2 py-0.5 rounded-full text-xs bg-orange-100 text-orange-700">สต็อกต่ำ เหลือ ${p.stock}</span>`:full?`<span class="text-sm text-stone-500">มีสินค้า ${p.stock} ชิ้น</span>`:'';
+const sb=(p,full)=>p.stock==0?'<span class="px-2 py-0.5 rounded-full text-xs bg-rose-50 text-rose-600">หมดสต็อก</span>':p.stock<=p.low?`<span class="px-2 py-0.5 rounded-full text-xs bg-orange-50 text-orange-600">สต็อกต่ำ เหลือ ${p.stock}</span>`:full?`<span class="text-sm text-stone-500">มีสินค้า ${p.stock} ชิ้น</span>`:'';
 const cartItems=()=>Object.entries(D.cart).map(([id,n])=>{const p=D.products.find(x=>x.id==id);return p&&{p,n,s:p.price*n}}).filter(Boolean);
 let M=null,Q={q:'',cat:0,sort:'',st:''};
 const flash=(t,err)=>{M={t,err}};
 
-function nav(){const m=me();$('nav').innerHTML=`<a href="#/" class="font-bold text-lg mr-auto">MedDiewJod Shop</a><a href="#/">สินค้า</a><a href="#/cart">ตะกร้า (${Object.values(D.cart).reduce((a,b)=>a+b,0)})</a>`+(m?(m.role=='admin'?'<a href="#/admin">แดชบอร์ด</a><a href="#/admin/products">จัดการสินค้า</a><a href="#/admin/orders">จัดการออเดอร์</a>':'<a href="#/orders">คำสั่งซื้อของฉัน</a>')+`<span>${E(m.name)}</span><a href="#/logout">ออกจากระบบ</a>`:'<a href="#/login">เข้าสู่ระบบ</a><a href="#/register" class="bg-white text-teal-800 rounded px-3 py-1 font-medium">สมัครสมาชิก</a>')}
+function nav(){const m=me();$('nav').innerHTML=`<a href="#/" class="brand text-lg mr-auto"><span class="dot">🌼</span>MedDiewJod Shop</a><a href="#/">สินค้า</a><a href="#/cart" class="cart-pill">🛍 ตะกร้า (${Object.values(D.cart).reduce((a,b)=>a+b,0)})</a>`+(m?(m.role=='admin'?'<a href="#/admin">แดชบอร์ด</a><a href="#/admin/products">จัดการสินค้า</a><a href="#/admin/orders">จัดการออเดอร์</a>':'<a href="#/orders">คำสั่งซื้อของฉัน</a>')+`<span>${E(m.name)}</span><a href="#/logout">ออกจากระบบ</a>`:'<a href="#/login">เข้าสู่ระบบ</a><a href="#/register" class="pill-cta font-medium">สมัครสมาชิก</a>')}
 
 const V={};
 V.nf=()=>'<p class="py-16 text-center text-stone-500">ไม่พบหน้าที่ต้องการ <a href="#/" class="underline text-teal-800">กลับหน้าแรก</a></p>';
-V['']=()=>`<div class="flex flex-wrap gap-2 mb-5 np"><input value="${E(Q.q)}" oninput="Q.q=this.value;grid()" placeholder="ค้นหาสินค้า" class="border rounded px-3 py-2 flex-1 min-w-40" aria-label="ค้นหา"><select onchange="Q.cat=+this.value;grid()" class="border rounded px-3 py-2" aria-label="หมวดหมู่"><option value="0">ทุกหมวดหมู่</option>${J(CATS,(c,i)=>`<option value="${i+1}" ${Q.cat==i+1?'selected':''}>${c}</option>`)}</select><select onchange="Q.sort=this.value;grid()" class="border rounded px-3 py-2" aria-label="เรียงลำดับ"><option value="">เรียงตามล่าสุด</option><option value="a" ${Q.sort=='a'?'selected':''}>ราคา น้อยไปมาก</option><option value="d" ${Q.sort=='d'?'selected':''}>ราคา มากไปน้อย</option></select></div><div id="grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>`;
+const CI=['🍊','💊','🌿','🌸'],CT=['t1','t2','t3','t4'];
+V['']=()=>{const chip=(i,t)=>`<button onclick="Q.cat=${i};render()" class="chip ${Q.cat==i?'on':''}">${t}</button>`;
+ return `<section class="hero np"><div><p class="hero-sub">ร้านวิตามินเล็กๆ ของเรา</p><h1 class="hero-t">ดูแลตัวเองเบาๆ ทุกวัน 🌼</h1><p class="hero-d">วิตามิน อาหารเสริม และสมุนไพร เลือกง่าย อ่านง่าย</p></div><div class="hero-emoji" aria-hidden="true">🍊🌿💊</div></section>
+<div class="flex flex-wrap gap-2 mb-4 np">${chip(0,'ทั้งหมด')}${J(CATS,(c,i)=>chip(i+1,CI[i]+' '+c))}</div>
+<div class="flex flex-wrap gap-2 mb-5 np"><input value="${E(Q.q)}" oninput="Q.q=this.value;grid()" placeholder="ค้นหาสินค้า" class="border px-4 py-2 flex-1 min-w-40" aria-label="ค้นหา"><select onchange="Q.sort=this.value;grid()" class="border px-4 py-2" aria-label="เรียงลำดับ"><option value="">เรียงตามล่าสุด</option><option value="a" ${Q.sort=='a'?'selected':''}>ราคา น้อยไปมาก</option><option value="d" ${Q.sort=='d'?'selected':''}>ราคา มากไปน้อย</option></select></div><div id="grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>`};
 function grid(){let l=D.products.filter(p=>(!Q.cat||p.cat==Q.cat)&&(p.name+p.desc).toLowerCase().includes(Q.q.trim().toLowerCase()));
  if(Q.sort)l.sort((a,b)=>Q.sort=='a'?a.price-b.price:b.price-a.price);
- $('grid').innerHTML=l.length?J(l,p=>`<a href="#/product/${p.id}" class="${CARD} overflow-hidden hover:border-teal-600 flex flex-col"><div class="h-28 bg-teal-50 flex items-center justify-center text-4xl">💊</div><div class="p-3 flex-1 flex flex-col gap-1"><span class="text-xs text-stone-500">${CATS[p.cat-1]}</span><span class="font-medium leading-snug">${E(p.name)}</span><span class="mt-auto font-bold text-teal-800">${B(p.price)}</span><span>${sb(p)}</span></div></a>`):'<p class="col-span-full py-12 text-center text-stone-500">ไม่พบสินค้าที่ตรงกับเงื่อนไข ลองล้างตัวกรองหรือค้นหาคำอื่น</p>'}
+ $('grid').innerHTML=l.length?J(l,p=>`<a href="#/product/${p.id}" class="${CARD} pcard overflow-hidden flex flex-col"><div class="pimg ${CT[p.cat-1]}"><span>${CI[p.cat-1]}</span></div><div class="p-4 flex-1 flex flex-col gap-1"><span class="tag ${CT[p.cat-1]}">${CATS[p.cat-1]}</span><span class="font-medium leading-snug mt-1">${E(p.name)}</span><span class="mt-auto pt-2 price">${B(p.price)}</span><span>${sb(p)}</span></div></a>`):'<p class="col-span-full py-12 text-center text-stone-500">ไม่พบสินค้าที่ตรงกับเงื่อนไข ลองล้างตัวกรองหรือค้นหาคำอื่น</p>'}
 V.product=id=>{const p=D.products.find(x=>x.id==id);if(!p)return V.nf();
- return `<a href="#/" class="text-sm text-teal-800 underline">← กลับไปรายการสินค้า</a><div class="grid md:grid-cols-2 gap-8 mt-4"><div class="h-72 bg-teal-50 rounded-lg flex items-center justify-center text-7xl">💊</div><div><p class="text-sm text-stone-500">${CATS[p.cat-1]}</p><h1 class="text-2xl font-bold mt-1">${E(p.name)}</h1><p class="text-3xl font-bold text-teal-800 mt-3">${B(p.price)}</p><p class="mt-3 text-stone-600">${E(p.desc)}</p><p class="mt-3">${sb(p,1)}</p>${p.stock?`<div class="mt-5 flex gap-2"><input id="qty" type="number" value="1" min="1" max="${p.stock}" class="border rounded px-3 py-2 w-24" aria-label="จำนวน"><button onclick="A.add(${p.id})" class="${BTN}">เพิ่มลงตะกร้า</button></div>`:''}</div></div>`};
+ return `<a href="#/" class="text-sm text-teal-800 underline">← กลับไปรายการสินค้า</a><div class="grid md:grid-cols-2 gap-8 mt-4"><div class="pimg ${CT[p.cat-1]} h-72 text-7xl" style="border-radius:28px"><span>${CI[p.cat-1]}</span></div><div><p class="text-sm text-stone-500">${CATS[p.cat-1]}</p><h1 class="text-2xl font-bold mt-1">${E(p.name)}</h1><p class="price text-3xl mt-3">${B(p.price)}</p><p class="mt-3 text-stone-600">${E(p.desc)}</p><p class="mt-3">${sb(p,1)}</p>${p.stock?`<div class="mt-5 flex gap-2"><input id="qty" type="number" value="1" min="1" max="${p.stock}" class="border rounded px-3 py-2 w-24" aria-label="จำนวน"><button onclick="A.add(${p.id})" class="${BTN}">เพิ่มลงตะกร้า</button></div>`:''}</div></div>`};
 V.cart=()=>{const it=cartItems(),t=it.reduce((a,x)=>a+x.s,0);if(!it.length)return '<h1 class="text-xl font-bold mb-4">ตะกร้าสินค้า</h1><p class="py-10 text-center text-stone-500">ตะกร้ายังว่าง <a href="#/" class="underline text-teal-800">เลือกสินค้า</a></p>';
  return `<h1 class="text-xl font-bold mb-4">ตะกร้าสินค้า</h1><div class="${CARD} divide-y">${J(it,({p,n,s})=>`<div class="p-3 flex flex-wrap items-center gap-3"><a href="#/product/${p.id}" class="flex-1 min-w-40 font-medium">${E(p.name)}<span class="block text-sm text-stone-500">${B(p.price)} / ชิ้น</span></a><input type="number" value="${n}" min="0" max="${p.stock}" onchange="A.setq(${p.id},this.value)" class="border rounded px-2 py-1 w-20" aria-label="จำนวน"><span class="w-24 text-right font-medium">${B(s)}</span><button onclick="A.setq(${p.id},0)" class="text-sm text-red-700 underline">ลบ</button></div>`)}</div><div class="flex justify-between items-center mt-4"><p class="text-lg">รวม <b class="text-teal-800">${B(t)}</b></p><a href="#/checkout" class="${BTN}">ไปชำระเงิน</a></div>`};
 V.checkout=()=>{const it=cartItems();if(!it.length)return V.cart();const last=D.orders.filter(o=>o.uid==D.me).pop();
@@ -56,9 +123,9 @@ V.orders=()=>{const l=D.orders.filter(o=>o.uid==D.me).reverse();
 
 const AD=()=>{const ok=D.orders.filter(o=>o.status!='cancelled'),days={};ok.forEach(o=>{const d=o.at.slice(0,10);days[d]=(days[d]||0)+o.total});
  const dl=Object.entries(days).sort().slice(-7),top=Math.max(1,...dl.map(x=>x[1])),low=D.products.filter(p=>p.stock<=p.low).sort((a,b)=>a.stock-b.stock),rec=[...D.orders].sort((a,b)=>b.id-a.id).slice(0,6),pend=D.orders.filter(o=>o.status=='pending').length;
- const card=(l,v,c='')=>`<div class="${CARD} p-4"><p class="text-sm text-stone-500">${l}</p><p class="text-2xl font-bold ${c}">${v}</p></div>`;
- return `<h1 class="text-xl font-bold mb-4">แดชบอร์ดผู้ดูแลร้าน</h1><div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">${card('รายได้รวม (ไม่รวมที่ยกเลิก)',B(ok.reduce((a,o)=>a+o.total,0)),'text-teal-800')}${card('คำสั่งซื้อทั้งหมด',D.orders.length)}${card('รอดำเนินการ',pend,pend?'text-amber-700':'')}${card('ลูกค้า',D.users.filter(u=>u.role=='customer').length)}</div>
-<section class="${CARD} p-4 mb-6"><h2 class="font-medium mb-3">รายได้รายวัน (7 วันล่าสุดที่มีออเดอร์)</h2>${dl.length?`<div class="flex items-end gap-2 h-44 border-b" role="img" aria-label="กราฟแท่งรายได้รายวัน">${J(dl,([d,t])=>`<div class="flex-1 flex flex-col justify-end items-center h-full"><span class="text-xs mb-1">${B(t)}</span><div class="w-full max-w-14 bg-teal-600 rounded-t" style="height:${(t/top*80).toFixed(1)}%"></div></div>`)}</div><div class="flex gap-2 mt-1">${J(dl,([d])=>`<span class="flex-1 text-center text-xs text-stone-500">${d.slice(5)}</span>`)}</div>`:'<p class="text-sm text-stone-500">ยังไม่มีข้อมูลยอดขาย</p>'}</section>
+ const card=(l,v,c='',ic='',t='t1')=>`<div class="${CARD} p-4"><span class="stat-icon ${t}">${ic}</span><p class="text-sm text-stone-500 mt-3">${l}</p><p class="num ${c}">${v}</p></div>`;
+ return `<div class="mb-6"><h1 class="text-2xl font-bold">สวัสดีค่ะ 🌿</h1><p class="text-sm text-stone-500 mt-1">ภาพรวมร้านวันนี้ แบบเบาๆ อ่านง่าย</p></div><div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">${card('รายได้รวม (ไม่รวมที่ยกเลิก)',B(ok.reduce((a,o)=>a+o.total,0)),'','💰','t1')}${card('คำสั่งซื้อทั้งหมด',D.orders.length,'','🧾','t3')}${card('รอดำเนินการ',pend,pend?'text-amber-700':'','⏳','t2')}${card('ลูกค้า',D.users.filter(u=>u.role=='customer').length,'','🤍','t4')}</div>
+<section class="${CARD} p-4 mb-6"><h2 class="font-medium mb-3">รายได้รายวัน (7 วันล่าสุดที่มีออเดอร์)</h2>${dl.length?`<div class="flex items-end gap-3 h-44 border-b" role="img" aria-label="กราฟแท่งรายได้รายวัน">${J(dl,([d,t])=>`<div class="flex-1 flex flex-col justify-end items-center h-full"><span class="text-xs mb-1">${B(t)}</span><div class="w-full max-w-12 chart-bar" style="height:${(t/top*80).toFixed(1)}%"></div></div>`)}</div><div class="flex gap-2 mt-1">${J(dl,([d])=>`<span class="flex-1 text-center text-xs text-stone-500">${d.slice(5)}</span>`)}</div>`:'<p class="text-sm text-stone-500">ยังไม่มีข้อมูลยอดขาย</p>'}</section>
 <div class="grid lg:grid-cols-2 gap-6"><section class="${CARD} p-4"><div class="flex justify-between mb-2"><h2 class="font-medium">คำสั่งซื้อล่าสุด</h2><a href="#/admin/orders" class="text-sm underline text-teal-800">ดูทั้งหมด</a></div>${J(rec,o=>`<p class="flex flex-wrap justify-between items-center gap-2 text-sm py-2 border-t"><span>#${o.id} ${E(uu(o.uid).name)}</span><span>${B(o.total)}</span>${bd(o.status)}</p>`)||'<p class="text-sm text-stone-500">ยังไม่มีคำสั่งซื้อ</p>'}</section>
 <section class="${CARD} p-4"><div class="flex justify-between mb-2"><h2 class="font-medium">สินค้าใกล้หมด (${low.length})</h2><a href="#/admin/products" class="text-sm underline text-teal-800">เติมสต็อก</a></div>${J(low,p=>`<p class="flex justify-between items-center text-sm py-2 border-t"><span>${E(p.name)}</span>${sb(p)}</p>`)||'<p class="text-sm text-stone-500">สต็อกทุกรายการปกติ</p>'}</section></div>`};
 const pf=p=>`<select name="cat" class="border rounded px-2 py-1" aria-label="หมวดหมู่">${J(CATS,(c,i)=>`<option value="${i+1}" ${p&&p.cat==i+1?'selected':''}>${c}</option>`)}</select><input name="name" value="${p?E(p.name):''}" required placeholder="ชื่อสินค้า" class="border rounded px-2 py-1 flex-1 min-w-40" aria-label="ชื่อสินค้า"><input name="price" type="number" min="0" step="any" required value="${p?p.price:''}" placeholder="ราคา" class="border rounded px-2 py-1 w-24" aria-label="ราคา"><input name="stock" type="number" min="0" required value="${p?p.stock:''}" placeholder="สต็อก" class="border rounded px-2 py-1 w-20" aria-label="สต็อก"><input name="low" type="number" min="0" value="${p?p.low:5}" class="border rounded px-2 py-1 w-20" aria-label="เกณฑ์สต็อกต่ำ">`;
@@ -100,7 +167,7 @@ function render(){const [,r='',a]=location.hash.slice(1).split('/'),m=me();let h
  const need=r=='admin'?'admin':['orders','checkout'].includes(r)?'user':'';
  if(need&&!m){flash('กรุณาเข้าสู่ระบบก่อน',1);location.hash='#/login';return}
  h=need=='admin'&&m.role!='admin'?'<p class="py-16 text-center">403 หน้านี้สำหรับผู้ดูแลร้านเท่านั้น</p>':(V[r]||V.nf)(a);
- $('app').innerHTML=(M?`<div role="status" class="mb-4 rounded px-4 py-2 text-sm ${M.err?'bg-red-100 text-red-800':'bg-emerald-100 text-emerald-800'}">${E(M.t)}</div>`:'')+h;
+ $('app').innerHTML=(M?`<div role="status" class="mb-4 rounded px-4 py-2 text-sm ${M.err?'bg-rose-50 text-rose-700':'bg-emerald-50 text-emerald-700'}">${E(M.t)}</div>`:'')+h;
  M=null;nav();if(r=='')grid();scrollTo(0,0)}
 addEventListener('hashchange',render);render();
 </script>
