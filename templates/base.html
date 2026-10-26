@@ -8,25 +8,25 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="bg-stone-50 text-stone-800 min-h-screen flex flex-col">
-<header class="bg-teal-800 text-white no-print">
+<body class="text-stone-800 min-h-screen flex flex-col">
+<header class="shop-header no-print">
   <nav class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-    <a href="{{ url_for('index') }}" class="font-bold text-lg mr-auto">MedDiewJod Shop</a>
-    <a href="{{ url_for('index') }}" class="hover:underline">สินค้า</a>
-    <a href="{{ url_for('cart') }}" class="hover:underline">ตะกร้า ({{ cart_n }})</a>
+    <a href="{{ url_for('index') }}" class="brand font-bold text-lg mr-auto"><span class="dot">💊</span>MedDiewJod Shop</a>
+    <a href="{{ url_for('index') }}" class="hover:underline-offset-4">สินค้า</a>
+    <a href="{{ url_for('cart') }}" class="hover:underline-offset-4">ตะกร้า ({{ cart_n }})</a>
     {% if current_user.is_authenticated %}
       {% if current_user.role == 'admin' %}
-        <a href="{{ url_for('admin') }}" class="hover:underline">แดชบอร์ด</a>
-        <a href="{{ url_for('admin_products') }}" class="hover:underline">จัดการสินค้า</a>
-        <a href="{{ url_for('admin_orders') }}" class="hover:underline">จัดการออเดอร์</a>
+        <a href="{{ url_for('admin') }}" class="hover:underline-offset-4">แดชบอร์ด</a>
+        <a href="{{ url_for('admin_products') }}" class="hover:underline-offset-4">จัดการสินค้า</a>
+        <a href="{{ url_for('admin_orders') }}" class="hover:underline-offset-4">จัดการออเดอร์</a>
       {% else %}
-        <a href="{{ url_for('orders') }}" class="hover:underline">คำสั่งซื้อของฉัน</a>
+        <a href="{{ url_for('orders') }}" class="hover:underline-offset-4">คำสั่งซื้อของฉัน</a>
       {% endif %}
-      <a href="{{ url_for('profile') }}" class="hover:underline">{{ current_user.name }}</a>
-      <a href="{{ url_for('logout') }}" class="hover:underline">ออกจากระบบ</a>
+      <a href="{{ url_for('profile') }}" class="hover:underline-offset-4">{{ current_user.name }}</a>
+      <a href="{{ url_for('logout') }}" class="hover:underline-offset-4">ออกจากระบบ</a>
     {% else %}
-      <a href="{{ url_for('login') }}" class="hover:underline">เข้าสู่ระบบ</a>
-      <a href="{{ url_for('register') }}" class="bg-white text-teal-800 rounded px-3 py-1 font-medium">สมัครสมาชิก</a>
+      <a href="{{ url_for('login') }}" class="hover:underline-offset-4">เข้าสู่ระบบ</a>
+      <a href="{{ url_for('register') }}" class="pill-cta font-medium">สมัครสมาชิก</a>
     {% endif %}
   </nav>
 </header>

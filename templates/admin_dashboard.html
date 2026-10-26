@@ -1,37 +1,41 @@
 {% extends "base.html" %}{% from "_macros.html" import badge, stock with context %}{% block title %}แดชบอร์ด{% endblock %}
 {% block content %}
-<h1 class="text-xl font-bold mb-4">แดชบอร์ดผู้ดูแลร้าน</h1>
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-  <div class="bg-white border rounded-lg p-4"><p class="text-sm text-stone-500">รายได้รวม (ไม่รวมที่ยกเลิก)</p><p class="text-2xl font-bold text-teal-800">{{ s.rev|baht }}</p></div>
-  <div class="bg-white border rounded-lg p-4"><p class="text-sm text-stone-500">คำสั่งซื้อทั้งหมด</p><p class="text-2xl font-bold">{{ s.n }}</p></div>
-  <div class="bg-white border rounded-lg p-4"><p class="text-sm text-stone-500">รอดำเนินการ</p><p class="text-2xl font-bold {{ 'text-amber-700' if pending }}">{{ pending }}</p></div>
-  <div class="bg-white border rounded-lg p-4"><p class="text-sm text-stone-500">ลูกค้า</p><p class="text-2xl font-bold">{{ customers }}</p></div>
+<div class="mb-6">
+  <h1 class="text-2xl font-bold" style="color:var(--ink)">สวัสดีค่ะ 🌿</h1>
+  <p class="label mt-1">ภาพรวมร้านวันนี้ แบบเบาๆ อ่านง่าย</p>
 </div>
 
-<section class="bg-white border rounded-lg p-4 mb-6">
-  <h2 class="font-medium mb-3">รายได้รายวัน (7 วันล่าสุดที่มีออเดอร์)</h2>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+  <div class="card"><span class="stat-icon">💰</span><p class="label mt-3">รายได้รวม (ไม่รวมที่ยกเลิก)</p><p class="num">{{ s.rev|baht }}</p></div>
+  <div class="card"><span class="stat-icon cream">🧾</span><p class="label mt-3">คำสั่งซื้อทั้งหมด</p><p class="num">{{ s.n }}</p></div>
+  <div class="card"><span class="stat-icon peach">⏳</span><p class="label mt-3">รอดำเนินการ</p><p class="num" {% if pending %}style="color:var(--peach-d)"{% endif %}>{{ pending }}</p></div>
+  <div class="card"><span class="stat-icon">🤍</span><p class="label mt-3">ลูกค้า</p><p class="num">{{ customers }}</p></div>
+</div>
+
+<section class="card mb-6">
+  <h2 class="font-medium mb-4">รายได้รายวัน <span class="label">· 7 วันล่าสุดที่มีออเดอร์</span></h2>
   {% if daily %}
-  <div class="flex items-end gap-2 h-44 border-b" role="img" aria-label="กราฟแท่งรายได้รายวัน">
+  <div class="flex items-end gap-3 h-44" style="border-bottom:1px solid var(--line)" role="img" aria-label="กราฟแท่งรายได้รายวัน">
     {% for d in daily %}
     <div class="flex-1 flex flex-col justify-end items-center h-full">
-      <span class="text-xs mb-1">{{ d.t|baht }}</span>
-      <div class="bar w-full max-w-14 bg-teal-600 rounded-t" style="height: {{ (d.t / top * 80)|round(1) }}%"></div>
+      <span class="text-xs mb-1" style="color:var(--muted)">{{ d.t|baht }}</span>
+      <div class="bar chart-bar w-full max-w-12" style="height: {{ (d.t / top * 80)|round(1) }}%"></div>
     </div>{% endfor %}
   </div>
-  <div class="flex gap-2 mt-1">{% for d in daily %}<span class="flex-1 text-center text-xs text-stone-500">{{ d.d[5:] }}</span>{% endfor %}</div>
-  {% else %}<p class="text-sm text-stone-500">ยังไม่มีข้อมูลยอดขาย</p>{% endif %}
+  <div class="flex gap-3 mt-2">{% for d in daily %}<span class="flex-1 text-center text-xs label">{{ d.d[5:] }}</span>{% endfor %}</div>
+  {% else %}<p class="empty">ยังไม่มีข้อมูลยอดขาย</p>{% endif %}
 </section>
 
 <div class="grid lg:grid-cols-2 gap-6">
-  <section class="bg-white border rounded-lg p-4">
-    <div class="flex justify-between mb-2"><h2 class="font-medium">คำสั่งซื้อล่าสุด</h2><a href="{{ url_for('admin_orders') }}" class="text-sm underline text-teal-800">ดูทั้งหมด</a></div>
-    {% for o in recent %}<p class="flex flex-wrap justify-between items-center gap-2 text-sm py-2 border-t"><span>#{{ o.id }} {{ o.name }}</span><span>{{ o.total|baht }}</span>{{ badge(o.status) }}</p>
-    {% else %}<p class="text-sm text-stone-500">ยังไม่มีคำสั่งซื้อ</p>{% endfor %}
+  <section class="card">
+    <div class="flex justify-between items-center mb-2"><h2 class="font-medium">คำสั่งซื้อล่าสุด</h2><a href="{{ url_for('admin_orders') }}" class="link-soft">ดูทั้งหมด</a></div>
+    {% for o in recent %}<p class="row"><span>#{{ o.id }} {{ o.name }}</span><span>{{ o.total|baht }}</span>{{ badge(o.status) }}</p>
+    {% else %}<p class="empty">ยังไม่มีคำสั่งซื้อ</p>{% endfor %}
   </section>
-  <section class="bg-white border rounded-lg p-4">
-    <div class="flex justify-between mb-2"><h2 class="font-medium">สินค้าใกล้หมด ({{ low|length }})</h2><a href="{{ url_for('admin_products') }}" class="text-sm underline text-teal-800">เติมสต็อก</a></div>
-    {% for p in low %}<p class="flex justify-between items-center text-sm py-2 border-t"><span>{{ p.name }}</span>{{ stock(p) }}</p>
-    {% else %}<p class="text-sm text-stone-500">สต็อกทุกรายการปกติ</p>{% endfor %}
+  <section class="card">
+    <div class="flex justify-between items-center mb-2"><h2 class="font-medium">สินค้าใกล้หมด ({{ low|length }})</h2><a href="{{ url_for('admin_products') }}" class="link-soft">เติมสต็อก</a></div>
+    {% for p in low %}<p class="row"><span>{{ p.name }}</span>{{ stock(p) }}</p>
+    {% else %}<p class="empty">สต็อกทุกรายการปกติ ✨</p>{% endfor %}
   </section>
 </div>
 {% endblock %}

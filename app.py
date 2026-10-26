@@ -15,10 +15,10 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-only-change-me")
 if not os.path.exists(DB):
     init(DB)
 
-ST = {"pending": ("รอดำเนินการ", "bg-amber-100 text-amber-800"),
-      "shipped": ("จัดส่งแล้ว", "bg-sky-100 text-sky-800"),
-      "delivered": ("ส่งถึงแล้ว", "bg-emerald-100 text-emerald-800"),
-      "cancelled": ("ยกเลิก", "bg-stone-200 text-stone-600")}
+ST = {"pending": ("รอดำเนินการ", "bg-amber-50 text-amber-700"),
+      "shipped": ("จัดส่งแล้ว", "bg-sky-50 text-sky-700"),
+      "delivered": ("ส่งถึงแล้ว", "bg-emerald-50 text-emerald-700"),
+      "cancelled": ("ยกเลิก", "bg-stone-100 text-stone-500")}
 
 def db():
     if "db" not in g:
